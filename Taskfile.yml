@@ -1,0 +1,28 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  GREETING: Hello, World!
+
+tasks:
+  default:
+    desc: "List tasks"
+    cmds:
+      - task -l
+  demo-start:
+    desc: "Start demo services"
+    cmds:
+      - docker-compose -f docker-compose.yml up -d
+  demo-stop:
+    desc: "Stop demo services"
+    cmds:
+      - docker-compose -f docker-compose.yml down
+  etcd-data-set:
+    desc: "Set a key-value pair in etcd"
+    cmds:
+      - docker exec etcd_demo etcdctl put public.config.max.connections 100
+  etcd-data-get:
+    desc: "Get a key-value pair from etcd"
+    cmds:
+      - docker exec etcd_demo etcdctl get public.config.max.connections

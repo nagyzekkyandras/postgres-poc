@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: pg_demo
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: demo_db
+    ports:
+      - "5432:5432"
+
+  # NoSQL
+  mongodb:
+    image: mongo:latest
+    container_name: mongo_demo
+    ports:
+      - "27017:27017"
+
+  # In-memory Cache
+  redis:
+    image: redis:alpine
+    container_name: redis_demo
+    ports:
+      - "6379:6379"
+
+  # Key-Value Store
+  etcd:
+    image: dhi.io/etcd:3-debian13-dev
+    container_name: etcd_demo
+    environment:
+      - ALLOW_NONE_AUTHENTICATION=yes
+      - ETCD_ADVERTISE_CLIENT_URLS=http://etcd:2379
+    ports:
+      - "2379:2379"
+      - "2380:2380"
