@@ -2,6 +2,8 @@
 
 Utána akarok járni hogy mennyire lehet a Postgres egy swájci bicska szerű eszköz így csökkentve a technológiai terheket.
 
+![Reddit](./reddit.jpeg)
+
 ## Postgres VS MongoDB
 
 Mikor váltható ki? Az esetek 90%-ában. Ha szükséged van sémamentes mezőkre, de akarod a relációs integritást is, a Postgres jobb választás.
@@ -24,6 +26,7 @@ SELECT * FROM documents WHERE content @> '{"name": "Laptop"}';
 ```
 
 ## Postgres VS ETCD
+
 Az ETCD setup egyszerűbb ugyanis a Postgres-ben kell egy init ami az adatbázist megfelelően létrehozza.
 Emiatt macerásabb is mert ki kell választani a DB-t illetve az authentikáció alapértelmezetten van.
 
@@ -45,7 +48,7 @@ ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
 
 ## Postgres VS Redis
 
-A Redis memóriában fut, ezért villámgyors. A Postgres lemezre ír, így lassabb, de biztonságosabb (ACID).
+Az UNLOGGED tábla típus kell ha a Redis-szerű sebességet akarod megközelíteni. Mivel ez a tábla nem ír a WAL logot, az írási műveletek sokkal gyorsabbak, viszont cserébe egy rendszerösszeomlás után a tábla tartalma automatikusan törlődik.
 
 Mikor váltható ki? Kisebb terhelésű cache-elésre vagy Background Job-ok kezelésére (pl. PGMQ vagy SKIP LOCKED technika).
 
